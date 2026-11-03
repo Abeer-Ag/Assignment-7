@@ -1,0 +1,57 @@
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Step 1: Create and load the CSV dataset
+df = pd.read_csv('student_data.csv')
+
+# Step 2: Display the dataset
+print("--- Loaded Dataset ---")
+print(df)
+
+# Step 3: Set Seaborn theme
+sns.set_theme(style="whitegrid")
+
+# Step 4: Create figure with 4 subplots
+plt.figure(figsize=(14, 10))
+
+# 1. Line Plot - Python Marks
+plt.subplot(2, 2, 1)
+plt.plot(df['Student'], df['Python'],
+         marker='o', color='blue', linewidth=2)
+plt.title('Line Plot: Python Marks by Student')
+plt.xlabel('Student')
+plt.ylabel('Python Marks')
+
+# 2. Bar Plot - Maths Marks
+plt.subplot(2, 2, 2)
+plt.bar(df['Student'], df['Maths'],
+        color='orange', edgecolor='black')
+plt.title('Bar Plot: Maths Marks by Student')
+plt.xlabel('Student')
+plt.ylabel('Maths Marks')
+
+# 3. Scatter Plot - Maths vs Python
+plt.subplot(2, 2, 3)
+plt.scatter(df['Maths'], df['Python'],
+            color='green', s=100, edgecolors='black')
+plt.title('Scatter Plot: Maths vs Python Marks')
+plt.xlabel('Maths Marks')
+plt.ylabel('Python Marks')
+
+# 4. Heatmap - Correlation Matrix
+plt.subplot(2, 2, 4)
+
+numerical_df = df[['Maths', 'Python', 'Attendance']]
+corr_matrix = numerical_df.corr()
+
+sns.heatmap(corr_matrix, annot=True,
+            cmap='coolwarm', fmt='.2f',
+            linewidths=0.5)
+
+plt.title('Heatmap: Correlation Matrix')
+
+# Step 5: Adjust layout and display plots
+plt.tight_layout()
+plt.show()
